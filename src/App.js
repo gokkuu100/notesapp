@@ -33,11 +33,21 @@ function App() {
       .catch((error) => console.error('Error adding task:', error));
   }
 
+  function handleRemoveTask(id) {
+    fetch(`http://localhost:3000/tasks/${id}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        setTaskArray(taskArray.filter((task) => task.id !== id));
+      })
+      .catch((error) => console.error('Error removing task:', error));
+  }
+
   return (
     <>
-    <Header className="bg-purple-500" />
+    <Header />
     <Form onNewTask={handleNewTask}/>
-    <Task todo={taskArray} />
+    <Task todo={taskArray} onRemoveTask={handleRemoveTask} />
     </>
   );
 }

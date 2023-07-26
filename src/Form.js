@@ -15,14 +15,14 @@ function Form({onNewTask}) {
     }
   return (
     <div>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} className='text-center'>
         <input 
-        className=''
+        className='p-4 w-[50%]'
         placeholder='enter task here'
         value={taskInput}
         onChange={handleInput}
         ></input>
-        <button type='submit'>Add task</button>
+        <button type='submit' className='p-[1rem] bg-red-700 text-white'>Add task</button>
       </form>
     </div>
   )

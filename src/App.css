@@ -40,3 +40,7 @@
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
+
+body {
+  background-color: rgb(15, 17, 22) /* Replace this with your desired background color */
+}
