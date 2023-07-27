@@ -19,23 +19,7 @@ function App() {
       .catch((error) => console.error('Error fetching tasks:', error));
   }
 
-  // function handleNewTask(newTask) {
-  //   fetch('https://itchy-loafers-calf.cyclic.app/tasks', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(newTask),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setTaskArray([...taskArray, data]);
-  //     })
-  //     .catch((error) => console.error('Error adding task:', error));
-  // }
-
   function handleNewTask(newTask) {
-    // Optimistically add the new task to the array
     setTaskArray([...taskArray, newTask]);
   
     fetch('https://itchy-loafers-calf.cyclic.app/tasks', {
