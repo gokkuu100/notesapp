@@ -3,6 +3,7 @@ import './App.css';
 import Header from './Header';
 import Form from './Form';
 import Task from './Task';
+import SearchForm from './SearchForm';
 
 function App() {
   const [taskArray, setTaskArray] = useState([]);
@@ -43,8 +44,14 @@ function App() {
       .catch((error) => console.error('Error removing task:', error));
   }
 
+  function handleSearching(search){
+    setTaskArray((taskArray) =>
+    taskArray.filter((item)=>item.task.includes(search)))
+  }
+
   return (
     <>
+    <SearchForm onSearching={handleSearching}/>
     <Header />
     <Form onNewTask={handleNewTask}/>
     <Task todo={taskArray} onRemoveTask={handleRemoveTask} />
