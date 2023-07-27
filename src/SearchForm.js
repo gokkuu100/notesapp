@@ -7,7 +7,7 @@ function SearchForm({onSearching}) {
       onSearching(search)
     }
   return (
-    <form onChange={handleChange}>
+    <form onChange={handleChange} className=''>
         <input 
         type='text' 
         placeholder='Search recent todolist...'

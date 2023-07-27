@@ -13,14 +13,32 @@ function App() {
   }, []);
 
   function fetchTasks() {
-    fetch('http://localhost:3000/tasks')
+    fetch('https://itchy-loafers-calf.cyclic.app/tasks')
       .then((response) => response.json())
       .then((data) => setTaskArray(data))
       .catch((error) => console.error('Error fetching tasks:', error));
   }
 
+  // function handleNewTask(newTask) {
+  //   fetch('https://itchy-loafers-calf.cyclic.app/tasks', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(newTask),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setTaskArray([...taskArray, data]);
+  //     })
+  //     .catch((error) => console.error('Error adding task:', error));
+  // }
+
   function handleNewTask(newTask) {
-    fetch('http://localhost:3000/tasks', {
+    // Optimistically add the new task to the array
+    setTaskArray([...taskArray, newTask]);
+  
+    fetch('https://itchy-loafers-calf.cyclic.app/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,13 +47,24 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setTaskArray([...taskArray, data]);
+        setTaskArray((prevTaskArray) => {
+          const updatedArray = prevTaskArray.map((task) =>
+            task.id === newTask.id ? data : task
+          );
+          return updatedArray;
+        });
       })
-      .catch((error) => console.error('Error adding task:', error));
+      .catch((error) => {
+        console.error('Error adding task:', error);
+        setTaskArray((prevTaskArray) =>
+          prevTaskArray.filter((task) => task.id !== newTask.id)
+        );
+      });
   }
+  
 
   function handleRemoveTask(id) {
-    fetch(`http://localhost:3000/tasks/${id}`, {
+    fetch(`https://itchy-loafers-calf.cyclic.app/tasks/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
